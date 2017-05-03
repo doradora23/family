@@ -20,10 +20,7 @@ android {
 }
 
 dependencies {
-<<<<<<< HEAD
     compile 'com.google.firebase:firebase-core:9.2.1'
-=======
->>>>>>> origin/master
     compile 'com.google.firebase:firebase-database:9.2.1'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

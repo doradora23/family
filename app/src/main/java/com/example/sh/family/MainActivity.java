@@ -9,23 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-<<<<<<< HEAD
 
 //import com.teamviewer.sdk.screensharing.api.*;
-=======
-
-//import com.teamviewer.sdk.screensharing.api.*;
-
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Random;
-
-
->>>>>>> origin/master
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -65,37 +50,6 @@ class ChatData {
 
 }
 public class MainActivity extends AppCompatActivity {
-    public class ChatData {
-        private String userName;
-        private String message;
-
-        public ChatData() { }
-
-        public ChatData(String userName, String message) {
-            this.userName = userName;
-            this.message = message;
-        }
-
-        public String getUserName() {
-            return userName;
-        }
-
-        public void setUserName(String userName) {
-            this.userName = userName;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-    }
-
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference = firebaseDatabase.getReference();
-
 
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -107,19 +61,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-<<<<<<< HEAD
         Intent intent = getIntent();
         final User loginUser = (User)intent.getSerializableExtra("loginUser");
 
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-=======
-        final String userName = "user" + new Random().nextInt(10000);  // 랜덤한 유저 이름 설정 ex) user1234
-
-
-        ListView listView = (ListView) findViewById(R.id.listView);
->>>>>>> origin/master
         final EditText editText = (EditText) findViewById(R.id.editText);
         Button sendButton = (Button) findViewById(R.id.button);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
@@ -129,11 +76,7 @@ public class MainActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-<<<<<<< HEAD
                 ChatData chatData = new ChatData(loginUser.getUserName(), editText.getText().toString());
-=======
-                ChatData chatData = new ChatData(userName, editText.getText().toString());
->>>>>>> origin/master
                 databaseReference.child("message").push().setValue(chatData);  // 기본 database 하위 message라는 child에 chatData를 list로 만들기
                 editText.setText("");
             }
