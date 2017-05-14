@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final User loginUser = (User)intent.getSerializableExtra("loginUser");
-
+        final String familyKey = loginUser.getfamilyKey();
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
@@ -77,12 +77,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ChatData chatData = new ChatData(loginUser.getUserName(), editText.getText().toString());
-                databaseReference.child("message").push().setValue(chatData);  // 기본 database 하위 message라는 child에 chatData를 list로 만들기
+                databaseReference.child("chat").child(familyKey).push().setValue(chatData);  // 기본 database 하위 message라는 child에 chatData를 list로 만들기
                 editText.setText("");
             }
         });
 
-        databaseReference.child("message").addChildEventListener(new ChildEventListener() {  // message는 child의 이벤트를 수신합니다.
+        databaseReference.child("chat").child(familyKey).addChildEventListener(new ChildEventListener() {  // message는 child의 이벤트를 수신합니다.
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

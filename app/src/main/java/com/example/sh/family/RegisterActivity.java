@@ -22,37 +22,43 @@ class User implements Serializable{
     private String userID;
     private String userName;
     private String userPassword;
+    private String familyKey;
 
     public String getUserID() {
         return userID;
     }
-
     public void setUserID(String userID) {
         this.userID = userID;
     }
-
     public String getUserName() {
         return userName;
     }
-
     public void setUserName(String userName) {
         this.userName = userName;
     }
     public String getUserPassword() {
         return userPassword;
     }
-
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+    public String getfamilyKey() {
+        return familyKey;
+    }
+    public void setfamilyKey(String familyKey) {
+        this.familyKey = familyKey;
     }
 
     public User(){};
 
-    public User(String userID, String userPassword, String userName) {
+    public User(String userID, String userPassword, String userName,String familyKey) {
         this.userID = userID;
         this.userPassword = userPassword;
         this.userName = userName;
+        this.familyKey = familyKey;
     }
+
+
 }
 public class RegisterActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -74,10 +80,9 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 final String userID = IDText.getText().toString();
-                String userName = NameText.getText().toString();
-                String userPassword = PasswordText.getText().toString();
-                final User registerUser = new User(userID,userPassword, userName);
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                final String userName = NameText.getText().toString();
+                final String userPassword = PasswordText.getText().toString();
+                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Iterator<DataSnapshot> child = dataSnapshot.child("user").getChildren().iterator();
@@ -89,6 +94,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 return;
                             }
                         }
+                        DatabaseReference mypostref = databaseReference.child("chat").push();
+                        final User registerUser = new User(userID,userPassword, userName, mypostref.getKey());
+
                         databaseReference.child("user").push().setValue(registerUser);
                         Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
 
